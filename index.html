@@ -1,121 +1,134 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Gorgan PS — گرگان پی اس FW 9.00</title>
+    <meta charset="utf-8">
+    <title>گرگان پی اس No-USB FW9.00</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        /* --- استایل کامل از #2 (بدون دکمه‌ها) --- */
+        body{
+            text-shadow: 0.2em 0.3em 0.3em black;
+            background-image: url("icon0.jpg");
+            background-position: center;
+            background-size: cover;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-color: #24272b;
+            color: white;
+            text-align: center;
+            overflow: hidden;
+            direction: rtl;
+            font-size:17px;
+            margin:0;
+            padding:18px;
+            font-family: "Tahoma","Arial",sans-serif;
+            min-height:100vh;
+            box-sizing:border-box;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+        }
+        h1 {
+            text-shadow: 0.2em 0.3em 0.3em black;
+            font-size: 35px;
+            color: white;
+            margin: 6px 0 10px 0;
+        }
+        h2 {
+            text-shadow: 0.2em 0.3em 0.3em black;
+            font-size: 30px;
+            color: white;
+        }
 
-  <style>
-    /* ریست ساده */
-    *{box-sizing:border-box;margin:0;padding:0}
-    html,body{height:100%}
-    body{
-      direction: rtl;
-      font-family: "Tahoma","Arial",sans-serif;
-      background-image: url("icon0.jpg"); /* پس‌زمینه اصلی */
-      background-position: center;
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      padding: 24px;
-      gap: 16px;
-      min-height:100vh;
-    }
+        @font-face {
+            font-family: 'logging';
+            src: url('fonts/LiberationMono-Regular.ttf');
+        }
+        #console {
+            font-family: 'logging';
+        }
+        .warning {
+            font-size: 25px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgb(255, 255, 255);
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 10px;
+            text-align: center;
+            color: white;
+            max-width:980px;
+            width:100%;
+            box-sizing:border-box;
+        }
 
-    /* فونت مونو برای کنسول (اگر موجود باشد) */
-    @font-face{
-      font-family: 'logging';
-      src: url('fonts/LiberationMono-Regular.ttf') format('truetype');
-      font-display: swap;
-    }
+        /* removed buttons area - keep spacing consistent */
+        .buttons-placeholder {
+            height: 0;
+            margin: 0;
+            padding: 0;
+        }
 
-    /* کادر توضیحات شبیه #2 */
-    .notice {
-      width: 100%;
-      max-width: 980px;
-      background: rgba(0,0,0,0.36);
-      border-radius: 12px;
-      padding: 16px 18px;
-      border: 1px solid rgba(255,255,255,0.08);
-      text-align: right;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
-    }
-    .notice h1{
-      font-size: 28px;
-      margin-bottom: 8px;
-      text-shadow: 0.2em 0.3em 0.3em black;
-      text-align: center;
-    }
-    .notice ul{
-      list-style-position: inside;
-      margin-top: 8px;
-      font-size: 16px;
-      line-height:1.5;
-    }
-    .notice strong{font-size:18px}
+        /* کنسول مشابه مورد #2 */
+        #console {
+            direction: ltr;
+            text-align: left;   
+            white-space: pre-wrap;
+            color: #FFF;
+            background-color: rgba(111,112,116,0.20);
+            border-radius: 18px;
+            width: 90%;
+            max-width: 980px;
+            height: 18%;
+            min-height:140px;
+            margin: 18px auto 30px auto; 
+            border: 1px solid #FFB84D;
+            padding: 12px; 
+            overflow-y: auto;
+            overflow-x: hidden;
+            box-sizing:border-box;
+            display:block;
+            position: relative;
+        }
 
-    /* کارت مرکزی ظاهراً ساده و جمع و جور */
-    .card {
-      width:100%;
-      max-width: 1000px;
-      display:flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-    }
+        #DebugConsole h3 {
+            color: #FFF;
+            font-size: 1em;
+            font-weight: bold;
+            letter-spacing: .08em;
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 1px solid #FFB84D;
+            border-radius: 18px;
+            padding: 10px;
+            pointer-events: auto;
+            display: inline-block;
+            margin: 0 0 10px 0;
+        }
 
-    /* کنسول پایین - مشابه مورد #1 اما در پایین صفحه */
-    #console{
-      font-family: 'logging', monospace;
-      direction: ltr; /* لاگ‌ها LTR باشند */
-      text-align: left;
-      white-space: pre-wrap;
-      color: #FFF;
-      background: rgba(111,112,116,0.18);
-      border-radius: 12px;
-      width: 100%;
-      max-width: 1000px;
-      height: 220px;
-      padding: 12px;
-      overflow-y: auto;
-      border: 1px solid #FFB84D;
-      box-shadow: inset 0 0 18px rgba(0,0,0,0.35);
-      font-size: 15px;
-      line-height: 1.35;
-      margin-top: 8px;
-    }
+        /* فضای خالی برای QR (پایین-راست) - شفاف و بدون محتوا */
+        .qr-reserve {
+            position: fixed;
+            right: 12px;
+            bottom: 12px;
+            width: 140px;
+            height: 140px;
+            pointer-events: none;
+            background: transparent;
+            z-index: 9999;
+        }
 
-    /* فضای خالی پایین-راست برای QR (کاملاً شفاف و بدون محتوا) */
-    /* این بخش فقط جا را رزرو می‌کند — هیچ محتوایی روی آن قرار نمی‌گیرد */
-    .qr-reserve {
-      position: fixed;
-      right: 16px;
-      bottom: 16px;
-      width: 140px;
-      height: 140px;
-      pointer-events: none;
-      background: transparent;
-      z-index: 1000;
-    }
-
-    /* ریسپانسیو */
-    @media (max-width:700px){
-      .notice h1{font-size:22px}
-      .notice ul{font-size:14px}
-      #console{height:160px;font-size:13px}
-      .qr-reserve{width:96px;height:96px;right:12px;bottom:12px}
-    }
-  </style>
+        /* responsive */
+        @media (max-width: 700px) {
+            h1 { font-size: 28px; }
+            .warning { font-size: 18px; padding:8px; }
+            #console { height: 160px; min-height:120px; padding:8px; }
+            .qr-reserve { width:96px; height:96px; right:8px; bottom:8px; }
+        }
+    </style>
 </head>
-
 <body>
-  <div class="card">
-    <div class="notice" role="note" aria-label="اطلاعات مهم">
+    <h1>هاست پی سی دی فریمور 9.00 بدون فلش</h1>
+
+    <div class="warning" role="note" aria-label="اطلاعات مهم">
       <h1>هاست Gorgan PS — فریمور 9.00 (بدون فلش)</h1>
       <strong>مهم</strong>
       <ul>
@@ -126,28 +139,28 @@
       </ul>
     </div>
 
-    <!-- کنسول دیباگ پایین -->
-    <div id="console" aria-live="polite" aria-atomic="false"></div>
-  </div>
+    <!-- جای دکمه‌ها حذف شد تا صفحه ساده باشد -->
+    <div class="buttons-placeholder" aria-hidden="true"></div>
 
-  <!-- فضای خالی پایین-راست؛ برای اینکه QR در بک‌گراند دیده شود و محتوای صفحه روی آن نیافتد -->
-  <div class="qr-reserve" aria-hidden="true"></div>
+    <div id="DebugConsole" style="width:100%;display:flex;flex-direction:column;align-items:center;">
+      <h3>Debug Console</h3>
+      <div id="console" aria-live="polite" aria-atomic="false"></div>
+    </div>
 
-  <!-- منطق اصلی: دقیقاً مثل نسخه‌ی 1 — هیچ اسکریپت اضافی اضافه نشد -->
-  <script>
-    // سازگاری با نسخه‌ی 1: اگر applicationCache وجود دارد و status == 0، به cache.html برود
+    <!-- فضای خالی پایین-راست برای QR (بدون هیچ محتوایی روی آن) -->
+    <div class="qr-reserve" aria-hidden="true"></div>
+
+    <!-- منطق مثل #1: چک applicationCache و سپس بارگذاری فایل‌های اصلی (بدون JS اضافی) -->
+    <script>
     try {
-      if (window.applicationCache && window.applicationCache.status === 0) {
+      if (window.applicationCache && window.applicationCache.status == 0) {
         window.location.replace("cache.html");
       }
     } catch (e) { /* ignore */ }
-  </script>
+    </script>
 
-  <!-- فایل‌های JS اصلی خودت را اینجا قرار بده -->
-  <!-- این فایل‌ها باید همان‌طور که قبلاً داشتی باشند (فاقد تغییر) -->
-  <script src="payload.js"></script>
-  <script type="module" src="./alert.mjs"></script>
+    <!-- فایل‌های اصلی (همان‌طور که در نسخه‌ی اول بود) -->
+    <script src="payload.js"></script>
+    <script type="module" src="./alert.mjs"></script>
 </body>
 </html>
-
-
